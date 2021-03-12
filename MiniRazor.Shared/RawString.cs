@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
-namespace MiniRazor
+namespace MiniRazor.Shared
 {
     /// <summary>
     /// Wraps a string and instructs the renderer to avoid encoding it.

@@ -38,6 +38,7 @@
   <!-- The following item group and target ensure that the codegen project is copied into the output NuGet package -->
   <ItemGroup>
     <ProjectReference Include="..\MiniRazor.CodeGen\MiniRazor.CodeGen.csproj" ReferenceOutputAssembly="true" IncludeAssets="MiniRazor.CodeGen.dll" />
+    <ProjectReference Include="..\MiniRazor.Shared\MiniRazor.Shared.csproj" />
   </ItemGroup>
 
   <Target Name="CopyAnalyzerToPackage">

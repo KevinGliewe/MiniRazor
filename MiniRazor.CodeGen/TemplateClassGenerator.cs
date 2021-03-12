@@ -17,7 +17,7 @@ namespace MiniRazor.CodeGen
         private static string? TryGetModelTypeName(string code, string className) =>
             Regex.Match(
                     code,
-                    $@"\s*{Regex.Escape(className)}\s*:\s*MiniRazor\.TemplateBase<(.+)>",
+                    $@"\s*{Regex.Escape(className)}\s*:\s*MiniRazor\.Shared\.TemplateBase<(.+)>",
                     RegexOptions.Multiline, TimeSpan.FromSeconds(1)
                 )
                 .Groups[1]

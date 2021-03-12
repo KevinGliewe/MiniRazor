@@ -1,3 +1,7 @@
+### v2.0.4 (12-Mar-2021)
+
+- Separate shared types into `MiniRazor.Shared` to avoid dependency on Razor compilation libraries. Fixes this [issue](https://github.com/Tyrrrz/MiniRazor/issues/6)
+
 ### v2.0.3 (15-Dec-2020)
 
 - Fixed more issues in generated code.

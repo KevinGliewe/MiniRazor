@@ -32,7 +32,7 @@ namespace MiniRazor
                 options =>
                 {
                     options.SetNamespace(actualNamespace);
-                    options.SetBaseType("MiniRazor.TemplateBase<dynamic>");
+                    options.SetBaseType("MiniRazor.Shared.TemplateBase<dynamic>");
 
                     options.ConfigureClass((_, node) =>
                     {

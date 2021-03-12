@@ -24,4 +24,6 @@ jobs:
           dotnet pack --configuration Release
 
       - name: Deploy
-        run: dotnet nuget push MiniRazor/bin/Release/*.nupkg -s nuget.org -k ${{ secrets.NUGET_TOKEN }}
+        run: \
+          dotnet nuget push MiniRazor/bin/Release/*.nupkg -s nuget.org -k ${{ secrets.NUGET_TOKEN }}
+          dotnet nuget push MiniRazor.Shared/bin/Release/*.nupkg -s nuget.org -k ${{ secrets.NUGET_TOKEN }}

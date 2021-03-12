@@ -1,8 +1,8 @@
-﻿using System.IO;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace MiniRazor
+namespace MiniRazor.Shared
 {
     /// <summary>
     /// Base implementation of a Razor template.
