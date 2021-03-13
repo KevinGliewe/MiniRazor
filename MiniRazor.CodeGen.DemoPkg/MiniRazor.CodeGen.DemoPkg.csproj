@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <RestoreSources>$(RestoreSources);../MiniRazor/bin/Release;https://api.nuget.org/v3/index.json</RestoreSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MiniRazor" Version="2.0.4" ReferenceOutputAssembly="false" OutputItemType="Analyzer" GeneratePathProperty="true" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <Import Project="$(PkgMiniRazor)\build\MiniRazor.props" />
+
+  <ItemGroup>
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="IsRazorTemplate" Visible="false" />
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="AccessModifier" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Include a single template -->
+    <AdditionalFiles Include="SomeRzr.razor" IsRazorTemplate="true" />
+  </ItemGroup>
+
+</Project>

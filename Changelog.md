@@ -1,3 +1,7 @@
+### v2.0.4 (13-Mar-2021)
+
+- Remove compile time dependencies. See https://github.com/Tyrrrz/MiniRazor/issues/6
+
 ### v2.0.3 (15-Dec-2020)
 
 - Fixed more issues in generated code.

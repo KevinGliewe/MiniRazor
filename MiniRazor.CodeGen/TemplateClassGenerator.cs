@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿// #define ATTACH_DEBUGGER
+
+using System.Text;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -6,21 +8,26 @@ using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.CodeAnalysis;
 using MiniRazor.CodeGen.Utils.Extensions;
 
+using static MiniRazor.CodeGen.Utils.Extensions.EmbeddedResourceHelper;
+
 namespace MiniRazor.CodeGen
 {
     [Generator]
     public partial class TemplateClassGenerator : ISourceGenerator
     {
+        private string _rootNamespace = "MiniRazor.GeneratedTemplates";
+        private string? _projectDir = null;
+
         private static readonly string GeneratorVersion =
             typeof(TemplateClassGenerator).Assembly.GetName().Version.ToString(3);
 
         private static string? TryGetModelTypeName(string code, string className) =>
             Regex.Match(
                     code,
-                    $@"\s*{Regex.Escape(className)}\s*:\s*MiniRazor\.TemplateBase<(.+)>",
+                    $@"\s*{Regex.Escape(className)}\s*:\s*([a-zA-Z0-9]+\.)*TemplateBase<([^\{{]+)>\s*\r?\n",
                     RegexOptions.Multiline, TimeSpan.FromSeconds(1)
                 )
-                .Groups[1]
+                .Groups[2]
                 .Value
                 .NullIfWhiteSpace();
 
@@ -50,10 +57,29 @@ namespace MiniRazor.CodeGen
 
         private void ProcessFile(GeneratorExecutionContext context, string filePath, string accessModifier, string content)
         {
+            string? backupNamespace = _rootNamespace;
+
+            // Reconstruct namespace from root-namespace and directory
+            if (_projectDir is not null)
+            {
+                var filePathDir = Path.GetFullPath(Path.GetDirectoryName(filePath));
+
+                // Continue only if file is inside the project dir structure
+                if (filePathDir.StartsWith(_projectDir))
+                {
+                    var relativeNamespace = filePathDir.Substring(_projectDir.Length);
+
+                    if (relativeNamespace.Length > 0)
+                        backupNamespace += "." + relativeNamespace;
+
+                    backupNamespace = SanitizeNamespace(backupNamespace);
+                }
+            }
+
             // Generate class name from file name
             var className = SanitizeIdentifier(Path.GetFileNameWithoutExtension(filePath));
 
-            var code = Razor.ToCSharp(content, accessModifier, options =>
+            var code = Razor.ToCSharp(content, accessModifier, _rootNamespace, backupNamespace, options =>
             {
                 options.ConfigureClass((_, node) =>
                 {
@@ -108,6 +134,18 @@ public static async global::System.Threading.Tasks.Task<string> RenderAsync({mod
         /// <inheritdoc />
         public void Execute(GeneratorExecutionContext context)
         {
+            _projectDir = context.GetMSBuildProperty("ProjectDir");
+
+            if (_projectDir is not null)
+                _projectDir = Path.GetFullPath(_projectDir);
+
+            _rootNamespace = 
+                context.GetMSBuildProperty("RootNamespace") ??
+                context.Compilation.AssemblyName ??
+                _rootNamespace;
+
+            bool containsRazorTemplate = false;
+
             foreach (var file in context.AdditionalFiles)
             {
                 var isRazorTemplate = string.Equals(
@@ -128,11 +166,30 @@ public static async global::System.Threading.Tasks.Task<string> RenderAsync({mod
                 if (string.IsNullOrWhiteSpace(accessModifier)) accessModifier = "internal";
 
                 ProcessFile(context, file.Path, accessModifier!, content!);
+
+                containsRazorTemplate = true;
+            }
+
+            // Write static source files
+            if (containsRazorTemplate)
+            {
+                foreach (var srcResource in new [] { "ITemplate", "TemplateBase", "RawString" })
+                {
+                    var source = ReadManifestSourceFile($"Embedded.{srcResource}.cs", _rootNamespace);
+                    context.AddSource(srcResource, source);
+                }
             }
         }
 
         /// <inheritdoc />
-        public void Initialize(GeneratorInitializationContext context) { }
+        public void Initialize(GeneratorInitializationContext context) {
+#if DEBUG && ATTACH_DEBUGGER
+            if (!System.Diagnostics.Debugger.IsAttached)
+            {
+                System.Diagnostics.Debugger.Launch();
+            }
+#endif 
+        }
     }
 
     public partial class TemplateClassGenerator
@@ -155,6 +212,24 @@ public static async global::System.Threading.Tasks.Task<string> RenderAsync({mod
             }
 
             return buffer.ToString();
+        }
+
+        private static string SanitizeNamespace(string symbolName) {
+            var buffer = new StringBuilder(symbolName);
+
+            
+            for (var i = 0; i < buffer.Length; i++) {
+                // Replace directory separators with dots
+                if (buffer[i] == '/' || buffer[i] == '\\')
+                    buffer[i] = '.';
+
+                // Replace all other prohibited characters with underscores
+                else if (buffer[i] != '_' && buffer[i] != '.' && !char.IsLetterOrDigit(buffer[i]))
+                    buffer[i] = '_';
+            }
+
+            // Remove duplicated dots
+            return Regex.Replace(buffer.ToString(), @"\.\.+", ".").Trim('.');
         }
     }
 }
