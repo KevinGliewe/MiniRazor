@@ -1,7 +1,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace MiniRazor.Shared
+namespace MiniRazor
 {
     // Non-generic template handle for easier consumption from reflection
     public interface ITemplate

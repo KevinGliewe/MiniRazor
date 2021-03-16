@@ -14,9 +14,14 @@ MiniRazor is a tiny abstraction over the Razor engine, designed to provide a sim
 
 📦 [NuGet](https://nuget.org/packages/MiniRazor): `dotnet add package MiniRazor`
 
+📦 [NuGet](https://nuget.org/packages/MiniRazor.Compiler): `dotnet add package MiniRazor.Compiler`
+
 ## Usage
 
 ### Compiling templates at build time
+
+
+> 💡 Uses package [`MiniRazor`](https://nuget.org/packages/MiniRazor)
 
 MiniRazor comes with a source generator that can parse Razor templates and transpile them into C# classes directly at build time.
 This workflow is suitable and highly recommended for scenarios where your templates are not expected to change.
@@ -59,17 +64,18 @@ In order to make the template accessible by MiniRazor's source generator, you ne
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MiniRazor" Version="x.x.x" OutputItemType="Analyzer" GeneratePathProperty="true"/>
+  </ItemGroup>
+
+  <Import Project="$(PkgMiniRazor)\build\MiniRazor.props" />
+
+  <ItemGroup>
     <!-- Include a single template -->
     <AdditionalFiles Include="Templates/TemplateFoo.cshtml" IsRazorTemplate="true" />
     
     <!-- Optional: Include multiple templates at once -->
     <AdditionalFiles Include="Templates/*.cshtml" IsRazorTemplate="true" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MiniRazor" Version="x.x.x" />
-  </ItemGroup>
-
 </Project>
 ```
 
@@ -92,6 +98,9 @@ Note that the type of the `model` parameter in `RenderAsync(...)` is automatical
 Here, since the template is derived from `MiniRazor.TemplateBase<string>`, the method expects a parameter of type `string`.
 
 ### Compiling templates at run time
+
+
+> 💡 Uses package [`MiniRazor.Compiler`](https://nuget.org/packages/MiniRazor.Compiler)
 
 If the previous approach doesn't fit your usage scenario, you can also compile templates at runtime.
 To do that, call `Razor.Compile(...)` with the template's source code:

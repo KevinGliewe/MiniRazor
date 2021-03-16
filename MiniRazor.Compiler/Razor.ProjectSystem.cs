@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Razor.Language;
 
-namespace MiniRazor
+namespace MiniRazor.Compiler
 {
     public static partial class Razor
     {

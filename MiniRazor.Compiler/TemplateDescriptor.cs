@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using MiniRazor.Utils.Extensions;
-using MiniRazor.Shared;
+using MiniRazor.Compiler.Utils.Extensions;
+using MiniRazor;
 
-namespace MiniRazor
+namespace MiniRazor.Compiler
 {
     /// <summary>
     /// Represents a compiled Razor template that can render output.

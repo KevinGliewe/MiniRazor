@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Razor.Language;
 
-namespace MiniRazor
+namespace MiniRazor.Compiler
 {
     /// <summary>
     /// Utilities for working with Razor templates.
@@ -19,12 +19,12 @@ namespace MiniRazor
                 .Trim();
 
         // Consumed from CodeGen
-        internal static string ToCSharp(string source, string accessModifier, Action<RazorProjectEngineBuilder>? configure = null)
+        internal static string ToCSharp(string source, string accessModifier, string? rootNamespace = null, string? backupActualNamespace = null, Action<RazorProjectEngineBuilder>? configure = null)
         {
             // For some reason Razor engine ignores @namespace directive if
             // the file system is not configured properly.
             // So to work around it, we "parse" it ourselves.
-            var actualNamespace = TryGetNamespace(source) ?? "MiniRazor.GeneratedTemplates";
+            var actualNamespace = TryGetNamespace(source) ?? backupActualNamespace ?? rootNamespace ?? "MiniRazor.GeneratedTemplates";
 
             var engine = RazorProjectEngine.Create(
                 RazorConfiguration.Default,
@@ -32,7 +32,7 @@ namespace MiniRazor
                 options =>
                 {
                     options.SetNamespace(actualNamespace);
-                    options.SetBaseType("MiniRazor.Shared.TemplateBase<dynamic>");
+                    options.SetBaseType("MiniRazor.TemplateBase<dynamic>");
 
                     options.ConfigureClass((_, node) =>
                     {

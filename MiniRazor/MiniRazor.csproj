@@ -1,44 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0</TargetFrameworks>
-    <Authors>$(Company)</Authors>
-    <Description>Portable Razor compiler and code generator</Description>
-    <PackageTags>razor template engine cshtml codegen code generation source generators</PackageTags>
-    <PackageProjectUrl>https://github.com/Tyrrrz/MiniRazor</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/Tyrrrz/MiniRazor/blob/master/Changelog.md</PackageReleaseNotes>
-    <PackageIcon>favicon.png</PackageIcon>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <DebugType>embedded</DebugType>
+    <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CopyAnalyzerToPackage</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
+
+  <Import Project="..\Directory.Build.props" />
 
   <ItemGroup>
     <None Include="../favicon.png" Pack="true" PackagePath="" />
     <None Include="MiniRazor.props" Pack="true" PackagePath="build" Visible="false" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="5.0.1" GeneratePathProperty="true" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
-    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="all" />
-    <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
-    <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="all" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
-  </ItemGroup>
-
   <!-- The following item group and target ensure that the codegen project is copied into the output NuGet package -->
   <ItemGroup>
-    <ProjectReference Include="..\MiniRazor.CodeGen\MiniRazor.CodeGen.csproj" ReferenceOutputAssembly="true" IncludeAssets="MiniRazor.CodeGen.dll" />
-    <ProjectReference Include="..\MiniRazor.Shared\MiniRazor.Shared.csproj" />
+    <ProjectReference Include="..\MiniRazor.CodeGen\MiniRazor.CodeGen.csproj" ReferenceOutputAssembly="true" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="5.0.1" PrivateAssets="all" GeneratePathProperty="true" />
   </ItemGroup>
 
   <Target Name="CopyAnalyzerToPackage">

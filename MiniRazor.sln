@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniRazor.CodeGen", "MiniRa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniRazor.CodeGen.Demo", "MiniRazor.CodeGen.Demo\MiniRazor.CodeGen.Demo.csproj", "{E9138E9A-16C0-4C0B-B43F-58E87675F20B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniRazor.Shared", "MiniRazor.Shared\MiniRazor.Shared.csproj", "{6887D139-B53A-49B6-A81A-D7455DE341A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniRazor.Compiler", "MiniRazor.Compiler\MiniRazor.Compiler.csproj", "{6887D139-B53A-49B6-A81A-D7455DE341A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

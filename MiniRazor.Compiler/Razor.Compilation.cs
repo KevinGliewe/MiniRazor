@@ -6,12 +6,12 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using MiniRazor.Exceptions;
-using MiniRazor.Utils;
-using MiniRazor.Utils.Extensions;
-using MiniRazor.Shared;
+using MiniRazor.Compiler.Exceptions;
+using MiniRazor.Compiler.Utils;
+using MiniRazor.Compiler.Utils.Extensions;
+using MiniRazor;
 
-namespace MiniRazor
+namespace MiniRazor.Compiler
 {
     public static partial class Razor
     {
