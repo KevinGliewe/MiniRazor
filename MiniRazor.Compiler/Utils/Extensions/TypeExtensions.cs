@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace MiniRazor.Compiler.Utils.Extensions
+namespace MiniRazor.Utils.Extensions
 {
     internal static class TypeExtensions
     {

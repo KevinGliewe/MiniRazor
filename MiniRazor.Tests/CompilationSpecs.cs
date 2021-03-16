@@ -4,8 +4,8 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-using MiniRazor.Compiler;
-using MiniRazor.Compiler.Exceptions;
+using MiniRazor;
+using MiniRazor.Exceptions;
 
 namespace MiniRazor.Tests
 {

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.CodeAnalysis;
 
-namespace MiniRazor.Compiler.Utils.Extensions
+namespace MiniRazor.Utils.Extensions
 {
     internal static class AssemblyExtensions
     {

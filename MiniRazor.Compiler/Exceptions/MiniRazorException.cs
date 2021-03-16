@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 
-namespace MiniRazor.Compiler.Exceptions
+namespace MiniRazor.Exceptions
 {
     /// <summary>
     /// Exception which is thrown when an attempt to compile a Razor template has failed.

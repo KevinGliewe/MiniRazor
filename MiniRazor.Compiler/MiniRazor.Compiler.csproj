@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MiniRazor\MiniRazor.csproj" />
+    <ProjectReference Include="..\MiniRazor.Runtime\MiniRazor.Runtime.csproj" />
   </ItemGroup>
 
 </Project>

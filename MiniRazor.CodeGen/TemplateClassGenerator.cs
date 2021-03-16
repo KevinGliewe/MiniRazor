@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.CodeAnalysis;
 using MiniRazor.CodeGen.Utils.Extensions;
-using MiniRazor.Compiler;
+using MiniRazor;
 
 namespace MiniRazor.CodeGen
 {

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Razor.Language;
 
-namespace MiniRazor.Compiler
+namespace MiniRazor
 {
     /// <summary>
     /// Utilities for working with Razor templates.

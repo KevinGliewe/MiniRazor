@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-using MiniRazor.Compiler;
+using MiniRazor;
 
 namespace MiniRazor.Tests
 {

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniRazor", "MiniRazor\MiniRazor.csproj", "{55199720-A2DF-4C70-A95F-9465F65011BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniRazor.Runtime", "MiniRazor.Runtime\MiniRazor.Runtime.csproj", "{55199720-A2DF-4C70-A95F-9465F65011BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniRazor.Tests", "MiniRazor.Tests\MiniRazor.Tests.csproj", "{36926806-0E5D-4E94-9773-00506EA859E8}"
 EndProject

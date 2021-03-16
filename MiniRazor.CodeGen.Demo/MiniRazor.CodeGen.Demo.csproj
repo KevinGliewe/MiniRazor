@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MiniRazor.CodeGen\MiniRazor.CodeGen.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
-    <ProjectReference Include="..\MiniRazor\MiniRazor.csproj" />
+    <ProjectReference Include="..\MiniRazor.Runtime\MiniRazor.Runtime.csproj" />
   </ItemGroup>
 
 </Project>
